@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: chatbot
-        image: my-registry/chatbot:latest
+        image: localhost:5000/my-registry/chatbot
         ports:
         - containerPort: 8000
         volumeMounts:
