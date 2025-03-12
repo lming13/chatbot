@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: chatbot
-        image:  my-registry/chatbot:latest
+        image:  docker.io/lmingus/chatbot
         ports:
         - containerPort: 8000
         volumeMounts:
