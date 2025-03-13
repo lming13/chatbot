@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: chromadb-pvc
 spec:
-  storageClassName: manual
+  storageClassName: low-latency
   accessModes:
     - ReadWriteOnce
   resources:
