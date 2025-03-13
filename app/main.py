@@ -30,4 +30,20 @@ def chat(request: ChatRequest):
             flat_documents = [doc for sublist in documents for doc in sublist]
             context = " ".join(flat_documents) if flat_documents else "Aucun contexte trouvé."
 
-  
+        print(f"DEBUG - Contexte final : {context}")  # Debugging
+
+        # Vérifier que le modèle Ollama est bien défini et envoyer la requête correctement
+        response = ollama.chat(
+            model="mistral",
+            messages=[{"role": "user", "content": f"{context} {request.question}"}]
+        )
+
+        # Vérifier si Ollama a bien répondu
+        if "message" not in response:
+            raise ValueError("Réponse de Ollama invalide")
+
+        return {"response": response["message"]}
+    
+    except Exception as e:
+        print(f"ERREUR - {str(e)}")  # Debugging
+        raise HTTPException(status_code=500, detail=f"Erreur lors du chat : {str(e)}")
