@@ -3,8 +3,9 @@ kind: Ingress
 metadata:
   name: chatbot-ingress
   annotations:
-    ingressclass.kubernetes.io/nginx
+    kubernetes.io/ingress.class: nginx
 spec:
+  ingressClassName: nginx
   rules:
   - host: osboxes
     http:
