@@ -4,7 +4,7 @@ metadata:
   name: chatbot-ingress
 spec:
   rules:
-  - host: chatbot.internal.company
+  - host: osboxes
     http:
       paths:
       - path: /
