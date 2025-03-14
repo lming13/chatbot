@@ -21,7 +21,7 @@ spec:
           - name: chromadb-storage
             mountPath: /app/chroma_db
           - name: ollama-storage
-            mountPath: /root/.ollama
+            mountPath: /app/ollama_db
       volumes:
         - name: chromadb-storage
           persistentVolumeClaim:
