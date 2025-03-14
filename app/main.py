@@ -1,4 +1,3 @@
-
 import requests
 from fastapi import FastAPI, HTTPException
 import ollama
