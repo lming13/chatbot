@@ -29,15 +29,3 @@ spec:
         - name: ollama-storage
           persistentVolumeClaim:
             claimName: ollama-pvc
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ollama-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
