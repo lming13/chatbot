@@ -14,13 +14,30 @@ spec:
     spec:
       containers:
       - name: chatbot
-        image:  docker.io/lmingus/chatbot:v1
+        image: docker.io/lmingus/chatbot:v1
         ports:
         - containerPort: 8000
         volumeMounts:
           - name: chromadb-storage
             mountPath: /app/chroma_db
+          - name: ollama-storage
+            mountPath: /root/.ollama
       volumes:
         - name: chromadb-storage
           persistentVolumeClaim:
             claimName: chromadb-pvc
+        - name: ollama-storage
+          persistentVolumeClaim:
+            claimName: ollama-pvc
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ollama-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
