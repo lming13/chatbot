@@ -1,7 +1,8 @@
-import requests
+
 from fastapi import FastAPI, HTTPException
 import ollama
 import chromadb
+import time
 
 app = FastAPI()
 
@@ -31,23 +32,15 @@ def chat(question: str):
         except requests.exceptions.RequestException as e:
             raise HTTPException(status_code=500, detail=f"🛑 Impossible de contacter Ollama : {str(e)}")
 
-        # Envoi à Ollama
+        # ✅ Exécuter Ollama avec un timeout plus long
         print("🟢 DEBUG - Envoi de la requête à Ollama...")
+        start_time = time.time()
+
         response = ollama.chat(
             model="mistral",
-            messages=[{"role": "user", "content": f"{context} {question}"}]
+            messages=[{"role": "user", "content": f"{context} {question}"}],
+            options={"timeout": 120}  # ⏳ Timeout augmenté à 120s
         )
 
-        print(f"🟢 DEBUG - Réponse brute Ollama: {response}")
-
-        # ✅ Correction : extraire la bonne donnée
-        if hasattr(response, 'message'):
-            return {"response": response.message}
-        elif isinstance(response, dict) and "message" in response:
-            return {"response": response["message"]}
-        else:
-            raise HTTPException(status_code=500, detail=f"🛑 Réponse mal formattée : {response}")
-
-    except Exception as e:
-        print(f"🛑 ERREUR - {str(e)}")
-        raise HTTPException(status_code=500, detail=f"🛑 Erreur lors du chat : {str(e)}")
+        elapsed_time = time.time() - start_time
+                                                                                                                7,15           7%
